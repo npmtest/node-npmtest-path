@@ -1,0 +1,2111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for node-npmtest-path/node_modules/path/path.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-path">npmtest-path (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-path/node_modules/path/path.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">16.67% <small>(43 / 258)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0.53% <small>(1 / 189)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 28)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">16.67% <small>(43 / 258)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">node-npmtest-path/node_modules/path/</a> &#187; path.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+&nbsp;
+'use strict';
+&nbsp;
+&nbsp;
+var isWindows = process.platform === 'win32';
+var util = require('util');
+&nbsp;
+&nbsp;
+// resolves . and .. elements in a path array with directory names there
+// must be no slashes or device names (c:\) in the array
+// (so also no leading and trailing slashes - it does not distinguish
+// relative and absolute paths)
+<span class="fstat-no" title="function not covered" >function normalizeArray(parts, allowAboveRoot) {</span>
+<span class="cstat-no" title="statement not covered" >  var res = [];</span>
+<span class="cstat-no" title="statement not covered" >  for (var i = 0; i &lt; parts.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    var p = parts[i];</span>
+&nbsp;
+    // ignore empty parts
+<span class="cstat-no" title="statement not covered" >    if (!p || p === '.')</span>
+<span class="cstat-no" title="statement not covered" >      continue;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (p === '..') {</span>
+<span class="cstat-no" title="statement not covered" >      if (res.length &amp;&amp; res[res.length - 1] !== '..') {</span>
+<span class="cstat-no" title="statement not covered" >        res.pop();</span>
+      } else <span class="cstat-no" title="statement not covered" >if (allowAboveRoot) {</span>
+<span class="cstat-no" title="statement not covered" >        res.push('..');</span>
+      }
+    } else {
+<span class="cstat-no" title="statement not covered" >      res.push(p);</span>
+    }
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return res;</span>
+}
+&nbsp;
+// returns an array with empty elements removed from either end of the input
+// array or the original array if no elements need to be removed
+<span class="fstat-no" title="function not covered" >function trimArray(arr) {</span>
+<span class="cstat-no" title="statement not covered" >  var lastIndex = arr.length - 1;</span>
+<span class="cstat-no" title="statement not covered" >  var start = 0;</span>
+<span class="cstat-no" title="statement not covered" >  for (; start &lt;= lastIndex; start++) {</span>
+<span class="cstat-no" title="statement not covered" >    if (arr[start])</span>
+<span class="cstat-no" title="statement not covered" >      break;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var end = lastIndex;</span>
+<span class="cstat-no" title="statement not covered" >  for (; end &gt;= 0; end--) {</span>
+<span class="cstat-no" title="statement not covered" >    if (arr[end])</span>
+<span class="cstat-no" title="statement not covered" >      break;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (start === 0 &amp;&amp; end === lastIndex)</span>
+<span class="cstat-no" title="statement not covered" >    return arr;</span>
+<span class="cstat-no" title="statement not covered" >  if (start &gt; end)</span>
+<span class="cstat-no" title="statement not covered" >    return [];</span>
+<span class="cstat-no" title="statement not covered" >  return arr.slice(start, end + 1);</span>
+}
+&nbsp;
+// Regex to split a windows path into three parts: [*, device, slash,
+// tail] windows-only
+var splitDeviceRe =
+    /^([a-zA-Z]:|[\\\/]{2}[^\\\/]+[\\\/]+[^\\\/]+)?([\\\/])?([\s\S]*?)$/;
+&nbsp;
+// Regex to split the tail part of the above into [*, dir, basename, ext]
+var splitTailRe =
+    /^([\s\S]*?)((?:\.{1,2}|[^\\\/]+?|)(\.[^.\/\\]*|))(?:[\\\/]*)$/;
+&nbsp;
+var win32 = {};
+&nbsp;
+// Function to split a filename into [root, dir, basename, ext]
+<span class="fstat-no" title="function not covered" >function win32SplitPath(filename) {</span>
+  // Separate device+slash from tail
+<span class="cstat-no" title="statement not covered" >  var result = splitDeviceRe.exec(filename),</span>
+      device = (result[1] || '') + (result[2] || ''),
+      tail = result[3] || '';
+  // Split the tail into dir, basename and extension
+<span class="cstat-no" title="statement not covered" >  var result2 = splitTailRe.exec(tail),</span>
+      dir = result2[1],
+      basename = result2[2],
+      ext = result2[3];
+<span class="cstat-no" title="statement not covered" >  return [device, dir, basename, ext];</span>
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function win32StatPath(path) {</span>
+<span class="cstat-no" title="statement not covered" >  var result = splitDeviceRe.exec(path),</span>
+      device = result[1] || '',
+      isUnc = !!device &amp;&amp; device[1] !== ':';
+<span class="cstat-no" title="statement not covered" >  return {</span>
+    device: device,
+    isUnc: isUnc,
+    isAbsolute: isUnc || !!result[2], // UNC paths are always absolute
+    tail: result[3]
+  };
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function normalizeUNCRoot(device) {</span>
+<span class="cstat-no" title="statement not covered" >  return '\\\\' + device.replace(/^[\\\/]+/, '').replace(/[\\\/]+/g, '\\');</span>
+}
+&nbsp;
+// path.resolve([from ...], to)
+win32.resolve = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  var resolvedDevice = '',</span>
+      resolvedTail = '',
+      resolvedAbsolute = false;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  for (var i = arguments.length - 1; i &gt;= -1; i--) {</span>
+<span class="cstat-no" title="statement not covered" >    var path;</span>
+<span class="cstat-no" title="statement not covered" >    if (i &gt;= 0) {</span>
+<span class="cstat-no" title="statement not covered" >      path = arguments[i];</span>
+    } else <span class="cstat-no" title="statement not covered" >if (!resolvedDevice) {</span>
+<span class="cstat-no" title="statement not covered" >      path = process.cwd();</span>
+    } else {
+      // Windows has the concept of drive-specific current working
+      // directories. If we've resolved a drive letter but not yet an
+      // absolute path, get cwd for that drive. We're sure the device is not
+      // an unc path at this points, because unc paths are always absolute.
+<span class="cstat-no" title="statement not covered" >      path = process.env['=' + resolvedDevice];</span>
+      // Verify that a drive-local cwd was found and that it actually points
+      // to our drive. If not, default to the drive's root.
+<span class="cstat-no" title="statement not covered" >      if (!path || path.substr(0, 3).toLowerCase() !==</span>
+          resolvedDevice.toLowerCase() + '\\') {
+<span class="cstat-no" title="statement not covered" >        path = resolvedDevice + '\\';</span>
+      }
+    }
+&nbsp;
+    // Skip empty and invalid entries
+<span class="cstat-no" title="statement not covered" >    if (!util.isString(path)) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new TypeError('Arguments to path.resolve must be strings');</span>
+    } else <span class="cstat-no" title="statement not covered" >if (!path) {</span>
+<span class="cstat-no" title="statement not covered" >      continue;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var result = win32StatPath(path),</span>
+        device = result.device,
+        isUnc = result.isUnc,
+        isAbsolute = result.isAbsolute,
+        tail = result.tail;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (device &amp;&amp;</span>
+        resolvedDevice &amp;&amp;
+        device.toLowerCase() !== resolvedDevice.toLowerCase()) {
+      // This path points to another device so it is not applicable
+<span class="cstat-no" title="statement not covered" >      continue;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (!resolvedDevice) {</span>
+<span class="cstat-no" title="statement not covered" >      resolvedDevice = device;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (!resolvedAbsolute) {</span>
+<span class="cstat-no" title="statement not covered" >      resolvedTail = tail + '\\' + resolvedTail;</span>
+<span class="cstat-no" title="statement not covered" >      resolvedAbsolute = isAbsolute;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (resolvedDevice &amp;&amp; resolvedAbsolute) {</span>
+<span class="cstat-no" title="statement not covered" >      break;</span>
+    }
+  }
+&nbsp;
+  // Convert slashes to backslashes when `resolvedDevice` points to an UNC
+  // root. Also squash multiple slashes into a single one where appropriate.
+<span class="cstat-no" title="statement not covered" >  if (isUnc) {</span>
+<span class="cstat-no" title="statement not covered" >    resolvedDevice = normalizeUNCRoot(resolvedDevice);</span>
+  }
+&nbsp;
+  // At this point the path should be resolved to a full absolute path,
+  // but handle relative paths to be safe (might happen when process.cwd()
+  // fails)
+&nbsp;
+  // Normalize the tail path
+<span class="cstat-no" title="statement not covered" >  resolvedTail = normalizeArray(resolvedTail.split(/[\\\/]+/),</span>
+                                !resolvedAbsolute).join('\\');
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return (resolvedDevice + (resolvedAbsolute ? '\\' : '') + resolvedTail) ||</span>
+         '.';
+};
+&nbsp;
+&nbsp;
+win32.normalize = <span class="fstat-no" title="function not covered" >function(path) {</span>
+<span class="cstat-no" title="statement not covered" >  var result = win32StatPath(path),</span>
+      device = result.device,
+      isUnc = result.isUnc,
+      isAbsolute = result.isAbsolute,
+      tail = result.tail,
+      trailingSlash = /[\\\/]$/.test(tail);
+&nbsp;
+  // Normalize the tail path
+<span class="cstat-no" title="statement not covered" >  tail = normalizeArray(tail.split(/[\\\/]+/), !isAbsolute).join('\\');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!tail &amp;&amp; !isAbsolute) {</span>
+<span class="cstat-no" title="statement not covered" >    tail = '.';</span>
+  }
+<span class="cstat-no" title="statement not covered" >  if (tail &amp;&amp; trailingSlash) {</span>
+<span class="cstat-no" title="statement not covered" >    tail += '\\';</span>
+  }
+&nbsp;
+  // Convert slashes to backslashes when `device` points to an UNC root.
+  // Also squash multiple slashes into a single one where appropriate.
+<span class="cstat-no" title="statement not covered" >  if (isUnc) {</span>
+<span class="cstat-no" title="statement not covered" >    device = normalizeUNCRoot(device);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return device + (isAbsolute ? '\\' : '') + tail;</span>
+};
+&nbsp;
+&nbsp;
+win32.isAbsolute = <span class="fstat-no" title="function not covered" >function(path) {</span>
+<span class="cstat-no" title="statement not covered" >  return win32StatPath(path).isAbsolute;</span>
+};
+&nbsp;
+win32.join = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  var paths = [];</span>
+<span class="cstat-no" title="statement not covered" >  for (var i = 0; i &lt; arguments.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    var arg = arguments[i];</span>
+<span class="cstat-no" title="statement not covered" >    if (!util.isString(arg)) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new TypeError('Arguments to path.join must be strings');</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (arg) {</span>
+<span class="cstat-no" title="statement not covered" >      paths.push(arg);</span>
+    }
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var joined = paths.join('\\');</span>
+&nbsp;
+  // Make sure that the joined path doesn't start with two slashes, because
+  // normalize() will mistake it for an UNC path then.
+  //
+  // This step is skipped when it is very clear that the user actually
+  // intended to point at an UNC path. This is assumed when the first
+  // non-empty string arguments starts with exactly two slashes followed by
+  // at least one more non-slash character.
+  //
+  // Note that for normalize() to treat a path as an UNC path it needs to
+  // have at least 2 components, so we don't filter for that here.
+  // This means that the user can use join to construct UNC paths from
+  // a server name and a share name; for example:
+  //   path.join('//server', 'share') -&gt; '\\\\server\\share\')
+<span class="cstat-no" title="statement not covered" >  if (!/^[\\\/]{2}[^\\\/]/.test(paths[0])) {</span>
+<span class="cstat-no" title="statement not covered" >    joined = joined.replace(/^[\\\/]{2,}/, '\\');</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return win32.normalize(joined);</span>
+};
+&nbsp;
+&nbsp;
+// path.relative(from, to)
+// it will solve the relative path from 'from' to 'to', for instance:
+// from = 'C:\\orandea\\test\\aaa'
+// to = 'C:\\orandea\\impl\\bbb'
+// The output of the function should be: '..\\..\\impl\\bbb'
+win32.relative = <span class="fstat-no" title="function not covered" >function(from, to) {</span>
+<span class="cstat-no" title="statement not covered" >  from = win32.resolve(from);</span>
+<span class="cstat-no" title="statement not covered" >  to = win32.resolve(to);</span>
+&nbsp;
+  // windows is not case sensitive
+<span class="cstat-no" title="statement not covered" >  var lowerFrom = from.toLowerCase();</span>
+<span class="cstat-no" title="statement not covered" >  var lowerTo = to.toLowerCase();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var toParts = trimArray(to.split('\\'));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var lowerFromParts = trimArray(lowerFrom.split('\\'));</span>
+<span class="cstat-no" title="statement not covered" >  var lowerToParts = trimArray(lowerTo.split('\\'));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var length = Math.min(lowerFromParts.length, lowerToParts.length);</span>
+<span class="cstat-no" title="statement not covered" >  var samePartsLength = length;</span>
+<span class="cstat-no" title="statement not covered" >  for (var i = 0; i &lt; length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    if (lowerFromParts[i] !== lowerToParts[i]) {</span>
+<span class="cstat-no" title="statement not covered" >      samePartsLength = i;</span>
+<span class="cstat-no" title="statement not covered" >      break;</span>
+    }
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (samePartsLength == 0) {</span>
+<span class="cstat-no" title="statement not covered" >    return to;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var outputParts = [];</span>
+<span class="cstat-no" title="statement not covered" >  for (var i = samePartsLength; i &lt; lowerFromParts.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    outputParts.push('..');</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  outputParts = outputParts.concat(toParts.slice(samePartsLength));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return outputParts.join('\\');</span>
+};
+&nbsp;
+&nbsp;
+win32._makeLong = <span class="fstat-no" title="function not covered" >function(path) {</span>
+  // Note: this will *probably* throw somewhere.
+<span class="cstat-no" title="statement not covered" >  if (!util.isString(path))</span>
+<span class="cstat-no" title="statement not covered" >    return path;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!path) {</span>
+<span class="cstat-no" title="statement not covered" >    return '';</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var resolvedPath = win32.resolve(path);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (/^[a-zA-Z]\:\\/.test(resolvedPath)) {</span>
+    // path is local filesystem path, which needs to be converted
+    // to long UNC path.
+<span class="cstat-no" title="statement not covered" >    return '\\\\?\\' + resolvedPath;</span>
+  } else <span class="cstat-no" title="statement not covered" >if (/^\\\\[^?.]/.test(resolvedPath)) {</span>
+    // path is network UNC path, which needs to be converted
+    // to long UNC path.
+<span class="cstat-no" title="statement not covered" >    return '\\\\?\\UNC\\' + resolvedPath.substring(2);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return path;</span>
+};
+&nbsp;
+&nbsp;
+win32.dirname = <span class="fstat-no" title="function not covered" >function(path) {</span>
+<span class="cstat-no" title="statement not covered" >  var result = win32SplitPath(path),</span>
+      root = result[0],
+      dir = result[1];
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!root &amp;&amp; !dir) {</span>
+    // No dirname whatsoever
+<span class="cstat-no" title="statement not covered" >    return '.';</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (dir) {</span>
+    // It has a dirname, strip trailing slash
+<span class="cstat-no" title="statement not covered" >    dir = dir.substr(0, dir.length - 1);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return root + dir;</span>
+};
+&nbsp;
+&nbsp;
+win32.basename = <span class="fstat-no" title="function not covered" >function(path, ext) {</span>
+<span class="cstat-no" title="statement not covered" >  var f = win32SplitPath(path)[2];</span>
+  // TODO: make this comparison case-insensitive on windows?
+<span class="cstat-no" title="statement not covered" >  if (ext &amp;&amp; f.substr(-1 * ext.length) === ext) {</span>
+<span class="cstat-no" title="statement not covered" >    f = f.substr(0, f.length - ext.length);</span>
+  }
+<span class="cstat-no" title="statement not covered" >  return f;</span>
+};
+&nbsp;
+&nbsp;
+win32.extname = <span class="fstat-no" title="function not covered" >function(path) {</span>
+<span class="cstat-no" title="statement not covered" >  return win32SplitPath(path)[3];</span>
+};
+&nbsp;
+&nbsp;
+win32.format = <span class="fstat-no" title="function not covered" >function(pathObject) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!util.isObject(pathObject)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new TypeError(</span>
+        "Parameter 'pathObject' must be an object, not " + typeof pathObject
+    );
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var root = pathObject.root || '';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!util.isString(root)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new TypeError(</span>
+        "'pathObject.root' must be a string or undefined, not " +
+        typeof pathObject.root
+    );
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var dir = pathObject.dir;</span>
+<span class="cstat-no" title="statement not covered" >  var base = pathObject.base || '';</span>
+<span class="cstat-no" title="statement not covered" >  if (!dir) {</span>
+<span class="cstat-no" title="statement not covered" >    return base;</span>
+  }
+<span class="cstat-no" title="statement not covered" >  if (dir[dir.length - 1] === win32.sep) {</span>
+<span class="cstat-no" title="statement not covered" >    return dir + base;</span>
+  }
+<span class="cstat-no" title="statement not covered" >  return dir + win32.sep + base;</span>
+};
+&nbsp;
+&nbsp;
+win32.parse = <span class="fstat-no" title="function not covered" >function(pathString) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!util.isString(pathString)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new TypeError(</span>
+        "Parameter 'pathString' must be a string, not " + typeof pathString
+    );
+  }
+<span class="cstat-no" title="statement not covered" >  var allParts = win32SplitPath(pathString);</span>
+<span class="cstat-no" title="statement not covered" >  if (!allParts || allParts.length !== 4) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new TypeError("Invalid path '" + pathString + "'");</span>
+  }
+<span class="cstat-no" title="statement not covered" >  return {</span>
+    root: allParts[0],
+    dir: allParts[0] + allParts[1].slice(0, -1),
+    base: allParts[2],
+    ext: allParts[3],
+    name: allParts[2].slice(0, allParts[2].length - allParts[3].length)
+  };
+};
+&nbsp;
+&nbsp;
+win32.sep = '\\';
+win32.delimiter = ';';
+&nbsp;
+&nbsp;
+// Split a filename into [root, dir, basename, ext], unix version
+// 'root' is just a slash, or nothing.
+var splitPathRe =
+    /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
+var posix = {};
+&nbsp;
+&nbsp;
+<span class="fstat-no" title="function not covered" >function posixSplitPath(filename) {</span>
+<span class="cstat-no" title="statement not covered" >  return splitPathRe.exec(filename).slice(1);</span>
+}
+&nbsp;
+&nbsp;
+// path.resolve([from ...], to)
+// posix version
+posix.resolve = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  var resolvedPath = '',</span>
+      resolvedAbsolute = false;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  for (var i = arguments.length - 1; i &gt;= -1 &amp;&amp; !resolvedAbsolute; i--) {</span>
+<span class="cstat-no" title="statement not covered" >    var path = (i &gt;= 0) ? arguments[i] : process.cwd();</span>
+&nbsp;
+    // Skip empty and invalid entries
+<span class="cstat-no" title="statement not covered" >    if (!util.isString(path)) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new TypeError('Arguments to path.resolve must be strings');</span>
+    } else <span class="cstat-no" title="statement not covered" >if (!path) {</span>
+<span class="cstat-no" title="statement not covered" >      continue;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    resolvedPath = path + '/' + resolvedPath;</span>
+<span class="cstat-no" title="statement not covered" >    resolvedAbsolute = path[0] === '/';</span>
+  }
+&nbsp;
+  // At this point the path should be resolved to a full absolute path, but
+  // handle relative paths to be safe (might happen when process.cwd() fails)
+&nbsp;
+  // Normalize the path
+<span class="cstat-no" title="statement not covered" >  resolvedPath = normalizeArray(resolvedPath.split('/'),</span>
+                                !resolvedAbsolute).join('/');
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';</span>
+};
+&nbsp;
+// path.normalize(path)
+// posix version
+posix.normalize = <span class="fstat-no" title="function not covered" >function(path) {</span>
+<span class="cstat-no" title="statement not covered" >  var isAbsolute = posix.isAbsolute(path),</span>
+      trailingSlash = path &amp;&amp; path[path.length - 1] === '/';
+&nbsp;
+  // Normalize the path
+<span class="cstat-no" title="statement not covered" >  path = normalizeArray(path.split('/'), !isAbsolute).join('/');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!path &amp;&amp; !isAbsolute) {</span>
+<span class="cstat-no" title="statement not covered" >    path = '.';</span>
+  }
+<span class="cstat-no" title="statement not covered" >  if (path &amp;&amp; trailingSlash) {</span>
+<span class="cstat-no" title="statement not covered" >    path += '/';</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return (isAbsolute ? '/' : '') + path;</span>
+};
+&nbsp;
+// posix version
+posix.isAbsolute = <span class="fstat-no" title="function not covered" >function(path) {</span>
+<span class="cstat-no" title="statement not covered" >  return path.charAt(0) === '/';</span>
+};
+&nbsp;
+// posix version
+posix.join = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  var path = '';</span>
+<span class="cstat-no" title="statement not covered" >  for (var i = 0; i &lt; arguments.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    var segment = arguments[i];</span>
+<span class="cstat-no" title="statement not covered" >    if (!util.isString(segment)) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new TypeError('Arguments to path.join must be strings');</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (segment) {</span>
+<span class="cstat-no" title="statement not covered" >      if (!path) {</span>
+<span class="cstat-no" title="statement not covered" >        path += segment;</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        path += '/' + segment;</span>
+      }
+    }
+  }
+<span class="cstat-no" title="statement not covered" >  return posix.normalize(path);</span>
+};
+&nbsp;
+&nbsp;
+// path.relative(from, to)
+// posix version
+posix.relative = <span class="fstat-no" title="function not covered" >function(from, to) {</span>
+<span class="cstat-no" title="statement not covered" >  from = posix.resolve(from).substr(1);</span>
+<span class="cstat-no" title="statement not covered" >  to = posix.resolve(to).substr(1);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var fromParts = trimArray(from.split('/'));</span>
+<span class="cstat-no" title="statement not covered" >  var toParts = trimArray(to.split('/'));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var length = Math.min(fromParts.length, toParts.length);</span>
+<span class="cstat-no" title="statement not covered" >  var samePartsLength = length;</span>
+<span class="cstat-no" title="statement not covered" >  for (var i = 0; i &lt; length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    if (fromParts[i] !== toParts[i]) {</span>
+<span class="cstat-no" title="statement not covered" >      samePartsLength = i;</span>
+<span class="cstat-no" title="statement not covered" >      break;</span>
+    }
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var outputParts = [];</span>
+<span class="cstat-no" title="statement not covered" >  for (var i = samePartsLength; i &lt; fromParts.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    outputParts.push('..');</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  outputParts = outputParts.concat(toParts.slice(samePartsLength));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return outputParts.join('/');</span>
+};
+&nbsp;
+&nbsp;
+posix._makeLong = <span class="fstat-no" title="function not covered" >function(path) {</span>
+<span class="cstat-no" title="statement not covered" >  return path;</span>
+};
+&nbsp;
+&nbsp;
+posix.dirname = <span class="fstat-no" title="function not covered" >function(path) {</span>
+<span class="cstat-no" title="statement not covered" >  var result = posixSplitPath(path),</span>
+      root = result[0],
+      dir = result[1];
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!root &amp;&amp; !dir) {</span>
+    // No dirname whatsoever
+<span class="cstat-no" title="statement not covered" >    return '.';</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (dir) {</span>
+    // It has a dirname, strip trailing slash
+<span class="cstat-no" title="statement not covered" >    dir = dir.substr(0, dir.length - 1);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return root + dir;</span>
+};
+&nbsp;
+&nbsp;
+posix.basename = <span class="fstat-no" title="function not covered" >function(path, ext) {</span>
+<span class="cstat-no" title="statement not covered" >  var f = posixSplitPath(path)[2];</span>
+  // TODO: make this comparison case-insensitive on windows?
+<span class="cstat-no" title="statement not covered" >  if (ext &amp;&amp; f.substr(-1 * ext.length) === ext) {</span>
+<span class="cstat-no" title="statement not covered" >    f = f.substr(0, f.length - ext.length);</span>
+  }
+<span class="cstat-no" title="statement not covered" >  return f;</span>
+};
+&nbsp;
+&nbsp;
+posix.extname = <span class="fstat-no" title="function not covered" >function(path) {</span>
+<span class="cstat-no" title="statement not covered" >  return posixSplitPath(path)[3];</span>
+};
+&nbsp;
+&nbsp;
+posix.format = <span class="fstat-no" title="function not covered" >function(pathObject) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!util.isObject(pathObject)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new TypeError(</span>
+        "Parameter 'pathObject' must be an object, not " + typeof pathObject
+    );
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var root = pathObject.root || '';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!util.isString(root)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new TypeError(</span>
+        "'pathObject.root' must be a string or undefined, not " +
+        typeof pathObject.root
+    );
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var dir = pathObject.dir ? pathObject.dir + posix.sep : '';</span>
+<span class="cstat-no" title="statement not covered" >  var base = pathObject.base || '';</span>
+<span class="cstat-no" title="statement not covered" >  return dir + base;</span>
+};
+&nbsp;
+&nbsp;
+posix.parse = <span class="fstat-no" title="function not covered" >function(pathString) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!util.isString(pathString)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new TypeError(</span>
+        "Parameter 'pathString' must be a string, not " + typeof pathString
+    );
+  }
+<span class="cstat-no" title="statement not covered" >  var allParts = posixSplitPath(pathString);</span>
+<span class="cstat-no" title="statement not covered" >  if (!allParts || allParts.length !== 4) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new TypeError("Invalid path '" + pathString + "'");</span>
+  }
+<span class="cstat-no" title="statement not covered" >  allParts[1] = allParts[1] || '';</span>
+<span class="cstat-no" title="statement not covered" >  allParts[2] = allParts[2] || '';</span>
+<span class="cstat-no" title="statement not covered" >  allParts[3] = allParts[3] || '';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return {</span>
+    root: allParts[0],
+    dir: allParts[0] + allParts[1].slice(0, -1),
+    base: allParts[2],
+    ext: allParts[3],
+    name: allParts[2].slice(0, allParts[2].length - allParts[3].length)
+  };
+};
+&nbsp;
+&nbsp;
+posix.sep = '/';
+posix.delimiter = ':';
+&nbsp;
+&nbsp;
+<span class="missing-if-branch" title="if path not taken" >I</span>if (isWindows)
+<span class="cstat-no" title="statement not covered" >  module.exports = win32;</span>
+else /* posix */
+  module.exports = posix;
+&nbsp;
+module.exports.posix = posix;
+module.exports.win32 = win32;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Sat Apr 22 2017 07:27:32 GMT+0000 (UTC)</div>
+</div>
+</body>
+</html>
